@@ -63,9 +63,9 @@ app.get('/', (req, res) => {
 */
 
 router.get('/getData', (req, res) => {
-  res.json({ "songs": [{
-    "radiohead": "let down",
-    "the verve": "this time"
+  res.json({ "music": [{
+    band: "radiohead",
+    song: "let down"
   }]})
 })
 

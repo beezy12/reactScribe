@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Posts from './components/Posts'
 
 
 class App extends Component {
@@ -13,19 +14,20 @@ class App extends Component {
   getDataFromDb = () => {
     fetch("http://localhost:4001/api/getData")
       .then(res => res.json())
-      .then(res => this.setState({ data: res.songs }));
+      .then(res => this.setState({ 
+        data: res.music 
+      }));
   }
 
   render() {
-    //console.log(Array.isArray(this.state.data))
-    console.log(this.state)
+
     const data = this.state.data
     console.log(data)
 
     return (
       <div className="App">
         <div>
-          {data.map(thing => <p>{thing.radiohead}</p>)}
+          {data.map(thing => <p>{thing.band} {thing.song}</p>)}
         </div>
       </div>
     );
