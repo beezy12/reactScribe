@@ -12,6 +12,9 @@ const app = express();
 app.use(cors());
 
 mongoose.connect(keys.mongoURI)
+let db = mongoose.connection;
+db.once("open", () => console.log("connected to the database"));
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 
 const routes = require('./routes/entriesRouter')

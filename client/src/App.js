@@ -4,7 +4,7 @@ import Posts from './components/Entries'
 
 class App extends Component {
   state = {
-    data: []
+    entries: []
   }
 
   componentDidMount() {
@@ -15,19 +15,19 @@ class App extends Component {
     fetch("http://localhost:4001/api/getEntries")
       .then(res => res.json())
       .then(res => this.setState({ 
-        data: res.music 
+        entries: res 
       }));
   }
 
   render() {
 
-    const data = this.state.data
-    console.log(data)
+    const entries = this.state.entries
+    console.log(entries)
 
     return (
       <div className="App">
         <div>
-          {data.map(thing => <p>{thing.band} {thing.song}</p>)}
+          {entries.map(entry => <p>{entry.testagain}</p>)}
         </div>
       </div>
     );
