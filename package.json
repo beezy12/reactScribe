@@ -12,7 +12,10 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"cd server && nodemon server.js\" \"cd client && npm start\"",
-    "dev": "nodemon ./server/src/server.js"
+    "dev": "nodemon ./server/src/server.js",
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server"
   },
   "dependencies": {
     "concurrently": "^4.1.0"

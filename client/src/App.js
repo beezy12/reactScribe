@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   getDataFromDb = () => {
-    fetch("http://localhost:4001/api/getData")
+    fetch("http://localhost:4001/api/getEntries")
       .then(res => res.json())
       .then(res => this.setState({ 
         data: res.music 
