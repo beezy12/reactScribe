@@ -1,15 +1,18 @@
 'use strict'
 
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const keys = require('./config/keys')
 const logger = require('morgan');
+const PORT = process.env.PORT || 4001;
 
-const PORT = 4001;
 const app = express();
 app.use(cors());
-//const router = express.Router();
+
+mongoose.connect(keys.mongoURI)
+
 
 const routes = require('./routes/entriesRouter')
 
@@ -23,18 +26,6 @@ app.use(logger("dev"));
 
 app.use(routes)
 
-// app.get('/', (req, res) => {
-//   res.json({
-//     message: 'scribe!!'
-//   })
-// })
-
-// app.get('/getEntries', (req, res) => {
-//   res.json()
-// })
-
-// append /api for our http requests
-//app.use("/api", router);
 
 app.listen(PORT, () => {
   console.log(`app is listening on port ${PORT}`)

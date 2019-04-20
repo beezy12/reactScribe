@@ -11,3 +11,14 @@ module.exports = {
     })
   }
 }
+
+
+
+/*
+res.json({
+  music: [{
+    "band": "radiohead",
+    "song": "lucky"
+  }]
+})
+*/
