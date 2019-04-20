@@ -1,39 +1,76 @@
 'use strict'
 
-const express = require('express')
-const app = express()
+const mongoose = require('mongoose');
+const express = require('express');
+var cors = require('cors');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
 
-const axios = require('axios')
-const keys = require('./config/keys').mongoURI  // THIS IS TEMPORARY, until I get env keys set
-console.log(keys)
-//const mongoURI = require('./config/dev').mongoURI // THIS IS TEMPORARY, until I get env keys set
-//console.log(mongoURI)
-const logger = require('morgan')
-const path = require('path')
-
-const PORT = 3001
+const PORT = 4001;
+const app = express();
+app.use(cors());
+const router = express.Router();
 
 //app.use(express.static(path.join(__dirname, '/client/public')))
+
+// bodyParser, parses the request body to be a readable json format
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(logger("dev"));
-
-// const apiurl = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=8XBbzkkiRTpy0FXwYjiG0igADNboXdUA"
-
-// axios.get(apiurl)
-//   .then(res => {
-//     //console.log(response);
-//     console.log(response.data.results.books[0]);
-//     res.send(response.data.results.books[0]);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
-
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'welcome!'
+    message: 'scribe!!'
   })
 })
+
+
+/*
+ BOILERPLATE SENDS BACK:
+ {
+    "success": true,
+    "data": [
+        {
+            "_id": "5cba6b8b36c104054d0fd2a6",
+            "message": "adding this",
+            "id": 0,
+            "createdAt": "2019-04-20T00:44:59.384Z",
+            "updatedAt": "2019-04-20T00:44:59.384Z",
+            "__v": 0
+        },
+        {
+            "_id": "5cba6c0936c104054d0fd2a7",
+            "message": "that that",
+            "id": 1,
+            "createdAt": "2019-04-20T00:47:05.799Z",
+            "updatedAt": "2019-04-20T00:47:05.799Z",
+            "__v": 0
+        }
+    ]
+}
+*/
+
+
+/* this sends back: 
+{
+  "songs": [
+    {
+      "radiohead": "let down",
+      "the verve": "this time"
+    }
+  ]
+}
+*/
+
+router.get('/getData', (req, res) => {
+  res.json({ "songs": [{
+    "radiohead": "let down",
+    "the verve": "this time"
+  }]})
+})
+
+// append /api for our http requests
+app.use("/api", router);
 
 app.listen(PORT, () => {
   console.log(`app is listening on port ${PORT}`)
