@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Posts from './components/Entries'
+import Entries from './components/Entries'
 
 
 class App extends Component {
@@ -22,13 +22,11 @@ class App extends Component {
   render() {
 
     const entries = this.state.entries
-    console.log(entries)
+    // console.log(entries)
 
     return (
-      <div className="App">
-        <div>
-          {entries.map(entry => <p>{entry.testagain}</p>)}
-        </div>
+      <div>
+        <Entries entries={entries} />
       </div>
     );
   }

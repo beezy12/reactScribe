@@ -1,10 +1,13 @@
 import React from 'react'
+import Entry from './Entry'
 
-const Posts = props => (
-  
+const Entries = (props) => (
   <div>
-    <p>{props.key}</p>
+    {props.entries.map(entry => (
+      <Entry ent={entry} />
+    ))}
   </div>
 )
 
-export default Posts;
+
+export default Entries
