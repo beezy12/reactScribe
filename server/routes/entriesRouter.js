@@ -7,6 +7,7 @@ const entriesController = require('../controllers/entriesController')
 
 
 router.get('/getEntries', entriesController.getEntries)
+router.post('/storeEntries', entriesController.storeEntries)
 
 //append /api for our http requests
 router.use("/api", router);
