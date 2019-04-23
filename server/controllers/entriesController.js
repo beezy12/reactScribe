@@ -18,8 +18,8 @@ module.exports = {
   async storeEntries(req, res) {
     let data = new entriesModel()
     const { entryTitle, entryBody } = req.body.entry
-    console.log(entryTitle)
-    console.log(entryBody)
+    console.log('**server side, title: ****', entryTitle)
+    console.log('**server side, body: ****', entryBody)
     data.entryTitle = entryTitle
     data.entryBody = entryBody
     await data.save(err => {

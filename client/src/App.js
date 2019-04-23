@@ -8,23 +8,44 @@ class App extends Component {
     entries: [{
       entryBody: '',
       entryTitle: ''
-    }]
+    }],
+    isLoaded: false
   }
 
   componentDidMount() {
     this.getDataFromDb();
   }
 
+  // ***** THIS NEEDS TO CHANGE ******* //
   componentDidUpdate() {
-    this.getDataFromDb()
+    console.log('component did in fact update')
+    //this.getDataFromDb()
   }
 
-  getDataFromDb = () => {
-    fetch("http://localhost:4001/api/getEntries")
-      .then(res => res.json())
-      .then(res => this.setState({ 
-        entries: res 
-      }));
+  // *** maybe add async await here?
+  // getDataFromDb = () => {
+  //   fetch("http://localhost:4001/api/getEntries")
+  //     .then(res => res.json())
+  //     .then(res => this.setState({ 
+  //       entries: res,
+  //       isLoaded: true 
+  //     }))
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
+
+  getDataFromDb = async () => {
+    const res = await fetch("http://localhost:4001/api/getEntries")
+    const data = await res.json()
+    console.log('about to set state with this data: ', data)
+    this.setState({
+      entries: data,
+      isLoaded: true
+    })
+    // .catch(err => {     //// this doesn't work anymore once I set the async await
+    //   console.log(err)
+    // })
   }
 
   handleChange = (event) => {
@@ -42,7 +63,7 @@ class App extends Component {
     })
     .then(function (response) {
       console.log('response after sending entryBody to db: ', response)
-      // this.getDataFromDb()
+      this.getDataFromDb()
     })
     .catch(function (error) {
       console.log(error)
@@ -65,7 +86,7 @@ class App extends Component {
             <input type="text" name="entryTitle" onChange={this.handleChange} />
           </label>
           <label>
-            type entry body here:
+            Type entry body here:
             <input type="text" name="entryBody" onChange={this.handleChange} />
           </label>
           <button type="submit" value="submit">send it</button>
