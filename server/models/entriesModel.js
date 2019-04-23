@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 
 
 const EntrySchema = new mongoose.Schema({
-  entry: String
+  entryTitle: String,
+  entryBody: String
 })
 
 

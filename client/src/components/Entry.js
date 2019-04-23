@@ -2,7 +2,8 @@ import React from 'react'
 
 const Entry = (props) => (
   <div>
-    {props.ent._id}
+    {props.ent.entryTitle}
+    {props.ent.entryBody}
   </div>
 )
 

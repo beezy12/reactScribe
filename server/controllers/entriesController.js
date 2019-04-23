@@ -15,14 +15,15 @@ module.exports = {
     })
   },
 
-  storeEntries(req, res) {
+  async storeEntries(req, res) {
     let data = new entriesModel()
-    console.log('req.body here: ', req.body)
-    const entryToAdd = req.body.entry
-    console.log('about to save this to the database: ', entryToAdd)
-    data.entry = entryToAdd
-    data.save(err => {
-      if (err) return handleError(err)
+    const { entryTitle, entryBody } = req.body.entry
+    console.log(entryTitle)
+    console.log(entryBody)
+    data.entryTitle = entryTitle
+    data.entryBody = entryBody
+    await data.save(err => {
+      //if (err) return handleError(err)
 
       return res.json({ success: true })
 

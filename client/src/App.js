@@ -5,8 +5,10 @@ import Entries from './components/Entries'
 
 class App extends Component {
   state = {
-    entries: [],
-    message: ''
+    entries: [{
+      entryBody: '',
+      entryTitle: ''
+    }]
   }
 
   componentDidMount() {
@@ -21,19 +23,22 @@ class App extends Component {
       }));
   }
 
-  handleChange = (e) => {
-    this.setState({ message: e.target.value })
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
-  addToDb = (e) => {
-    e.preventDefault()
-    console.log('message to be sent: ', this.state.message)
+  addToDb = (event) => {
+    event.preventDefault()
 
     axios.post("http://localhost:4001/api/storeEntries", {
-      entry: this.state.message
+      entry: {
+        entryBody: this.state.entryBody,
+        entryTitle: this.state.entryTitle
+      }
     })
     .then(function (response) {
-      console.log('response after sending message to db: ', response)
+      console.log('response after sending entryBody to db: ', response)
+      this.getDataFromDb()
     })
     .catch(function (error) {
       console.log(error)
@@ -50,10 +55,14 @@ class App extends Component {
     return (
       <div>
         <Entries entries={entries} />
-        <form onSubmit={(e) => this.addToDb(e)}>
+        <form onSubmit={(event) => this.addToDb(event)}>
           <label>
-            Enter text:
-            <input type="text" name="body" onChange={this.handleChange} />
+            Enter title:
+            <input type="text" name="entryTitle" onChange={this.handleChange} />
+          </label>
+          <label>
+            type entry body here:
+            <input type="text" name="entryBody" onChange={this.handleChange} />
           </label>
           <button type="submit" value="submit">send it</button>
         </form>
