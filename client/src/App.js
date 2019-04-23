@@ -15,6 +15,10 @@ class App extends Component {
     this.getDataFromDb();
   }
 
+  componentDidUpdate() {
+    this.getDataFromDb()
+  }
+
   getDataFromDb = () => {
     fetch("http://localhost:4001/api/getEntries")
       .then(res => res.json())
@@ -38,7 +42,7 @@ class App extends Component {
     })
     .then(function (response) {
       console.log('response after sending entryBody to db: ', response)
-      this.getDataFromDb()
+      // this.getDataFromDb()
     })
     .catch(function (error) {
       console.log(error)
